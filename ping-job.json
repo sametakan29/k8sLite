@@ -1,0 +1,9 @@
+{
+  "id": "network-check",
+  "task": {
+    "name": "ping-google",
+    "driver": "raw_exec",
+    "command": "ping",
+    "args": ["-n", "3", "8.8.8.8"]
+  }
+}
