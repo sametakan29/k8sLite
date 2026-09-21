@@ -62,9 +62,23 @@ func handleGet(client *api.Client) {
 			fmt.Printf("Node listesi alinamadi: %v\n", err)
 			return
 		}
-		fmt.Fprintln(w, "NAME\tADDRESS\tSTATUS")
+		pods, _ := client.ListPods()
+
+		fmt.Fprintln(w, "NODE\tADDRESS\tSTATUS\tASSIGNED PODS")
 		for _, n := range nodes {
-			fmt.Fprintf(w, "%s\t%s\t%s\n", n.Name, n.Address, n.Status)
+			// Bu node'a atanmış pod'ları topla
+			assignedPods := []string{}
+			for _, p := range pods {
+				if p.NodeName == n.Name {
+					assignedPods = append(assignedPods, p.Name)
+				}
+			}
+
+			podListStr := fmt.Sprintf("%v", assignedPods)
+			if len(assignedPods) == 0 {
+				podListStr = "none"
+			}
+			fmt.Fprintf(w, "%s\t%s\t%s\t%s\n", n.Name, n.Address, n.Status, podListStr)
 		}
 		w.Flush()
 
