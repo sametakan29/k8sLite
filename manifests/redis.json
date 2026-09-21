@@ -1,0 +1,4 @@
+{
+  "name": "redis-cache",
+  "image": "redis:alpine"
+}
