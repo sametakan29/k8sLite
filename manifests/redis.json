@@ -1,4 +1,4 @@
 {
-  "name": "redis-cache",
-  "image": "redis:alpine"
+  "name": "frontend-web",
+  "image": "nginx:alpine"
 }
